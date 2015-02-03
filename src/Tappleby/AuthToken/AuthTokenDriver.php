@@ -62,7 +62,7 @@ class AuthTokenDriver {
     if($user == null) {
       return false;
     }
-
+    $this->tokens->touch($authTokenPayload);
     return $user;
   }
 
@@ -89,7 +89,7 @@ class AuthTokenDriver {
    * @return bool|AuthToken
    */
   public function create(UserInterface $user) {
-    $this->tokens->purge($user);
+    //$this->tokens->purge($user);
     return $this->tokens->create($user);
   }
 

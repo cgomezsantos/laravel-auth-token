@@ -57,4 +57,12 @@ interface AuthTokenProviderInterface {
    * @return bool
    */
   public function purge($identifier);
+  
+    /**
+   * Touches the token for later p.
+   *
+   * @param $serializedAuthToken string
+   * @return Boolean
+   */
+  public function touch($serializedAuthToken);
 }

@@ -118,4 +118,34 @@ class DatabaseAuthTokenProvider extends AbstractAuthTokenProvider {
 
     return $res > 0;
   }
+  
+  /**
+   * Touches the token for multi device login.
+   *
+   * @param $serializedAuthToken string
+   * @return Boolean
+   */
+  public function touch($serializedAuthToken)
+  {
+    $authToken = $this->deserializeToken($serializedAuthToken);
+
+    if($authToken == null) {
+      return null;
+    }
+
+    if(!$this->verifyAuthToken($authToken)) {
+      return null;
+    }
+
+    $res = $this->db()
+                ->where('auth_identifier', $authToken->getAuthIdentifier())
+                ->where('public_key', $authToken->getPublicKey())
+                ->where('private_key', $authToken->getPrivateKey())
+                ->update(array('updated_at' => date('c')));
+
+    if($res == null) {
+      return null;
+    }
+    return true;
+  }
 }
