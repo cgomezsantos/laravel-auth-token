@@ -4,6 +4,10 @@
  * User: tappleby
  * Date: 2013-05-11
  * Time: 2:53 PM
+ * -----------------------
+ * Editor: cgomezsantos
+ * Edit Date: 2015-04-02
+ * Edit Time: 1:32 PM
  * To change this template use File | Settings | File Templates.
  */
 
@@ -65,4 +69,12 @@ interface AuthTokenProviderInterface {
    * @return Boolean
    */
   public function touch($serializedAuthToken);
+  
+  /**
+   * Deletes an specific auth token.
+   *
+   * @param $serializedAuthToken string
+   * @return Boolean
+   */
+  public function remove($serializedAuthToken);
 }

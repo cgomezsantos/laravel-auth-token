@@ -3,6 +3,10 @@
  * User: tappleby
  * Date: 2013-05-11
  * Time: 9:23 PM
+ * -----------------------
+ * Editor: cgomezsantos
+ * Edit Date: 2015-04-02
+ * Edit Time: 1:32 PM
  */
 
 namespace Tappleby\AuthToken;
@@ -111,5 +115,9 @@ class AuthTokenDriver {
    */
   public function publicToken(AuthToken $token) {
     return $this->tokens->serializeToken($token);
+  }
+  
+  public function purgeToken($authTokenPayload) {
+    return $this->tokens->remove($authTokenPayload);
   }
 }

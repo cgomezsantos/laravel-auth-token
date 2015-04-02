@@ -3,6 +3,10 @@
  * User: tappleby
  * Date: 2013-05-11
  * Time: 4:07 PM
+ * -----------------------
+ * Editor: cgomezsantos
+ * Edit Date: 2015-04-02
+ * Edit Time: 1:33 PM
  */
 
 namespace Tappleby\AuthToken;
@@ -147,5 +151,26 @@ class DatabaseAuthTokenProvider extends AbstractAuthTokenProvider {
       return null;
     }
     return true;
+  }
+  
+  public function remove($serializedAuthToken)
+  {
+    $authToken = $this->deserializeToken($serializedAuthToken);
+
+    if($authToken == null) {
+      return null;
+    }
+
+    if(!$this->verifyAuthToken($authToken)) {
+      return null;
+    }
+
+    $res = $this->db()
+                ->where('auth_identifier', $authToken->getAuthIdentifier())
+                ->where('public_key', $authToken->getPublicKey())
+                ->where('private_key', $authToken->getPrivateKey())
+                ->delete();
+
+    return $res > 0;
   }
 }
